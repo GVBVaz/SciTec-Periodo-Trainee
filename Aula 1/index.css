@@ -1,0 +1,15 @@
+div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+
+    background-color: gray;
+}
+
+@media screen and (max-width: 580px) {
+    div {
+        flex-direction: column;
+    }
+}
