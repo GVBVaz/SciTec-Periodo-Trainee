@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste API Produtos</title>
+</head>
+<body>
+    <h1>Teste API Produtos</h1>
+
+    <button onclick="getProdutos()">Listar Produtos</button>
+
+    <div>
+        <input type="number" id="getId" placeholder="ID do Produto">
+        <button onclick="getProdutoById()">Buscar Produto</button>
+    </div>
+
+    <div>
+        <input type="text" id="novoNome" placeholder="Nome do Produto">
+        <input type="number" id="novoPreco" placeholder="Preço">
+        <button onclick="criarProduto()">Criar Produto</button>
+    </div>
+
+    <div>
+        <input type="number" id="atualizarId" placeholder="ID do Produto">
+        <input type="text" id="atualizarNome" placeholder="Novo Nome">
+        <input type="number" id="atualizarPreco" placeholder="Novo Preço">
+        <button onclick="atualizarProduto()">Atualizar Produto</button>
+    </div>
+
+    <div>
+        <input type="number" id="deletarId" placeholder="ID do Produto">
+        <button onclick="deletarProduto()">Deletar Produto</button>
+    </div>
+
+    <div class="resultado" id="resultado"></div>
+
+    <script>
+        const resultado = document.getElementById('resultado');
+
+        async function getProdutos() {
+            const res = await fetch('/api/produtos');
+            const data = await res.json();
+            resultado.textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function getProdutoById() {
+            const id = document.getElementById('getId').value;
+            const res = await fetch(`/api/produtos/${id}`);
+            const data = await res.json();
+            resultado.textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function criarProduto() {
+            const nome = document.getElementById('novoNome').value;
+            const preco = Number(document.getElementById('novoPreco').value);
+            const res = await fetch('/api/produtos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nome, preco })
+            });
+            const data = await res.json();
+            resultado.textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function atualizarProduto() {
+            const id = document.getElementById('atualizarId').value;
+            const nome = document.getElementById('atualizarNome').value;
+            const preco = document.getElementById('atualizarPreco').value;
+            const body = {};
+            if (nome) body.nome = nome;
+            if (preco) body.preco = Number(preco);
+
+            const res = await fetch(`/api/produtos/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            const data = await res.json();
+            resultado.textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function deletarProduto() {
+            const id = document.getElementById('deletarId').value;
+            const res = await fetch(`/api/produtos/${id}`, { method: 'DELETE' });
+            const data = await res.json();
+            resultado.textContent = JSON.stringify(data, null, 2);
+        }
+  </script>
+</body>
+</html>
