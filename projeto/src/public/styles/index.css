@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --color-01: #5C4033;
+    --color-02: #F5E6CC;
+    --color-03: #8B5E3C;
+    --color-04: #E6B566;
+    --color-05: #D4A373;
+    --color-07: #F8EDDA;
+}
+
+/* Barra de rolagem para navegadores baseados em WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: auto; /* largura da barra */
+}
+
+::-webkit-scrollbar-track {
+    background: #F5E6CC; /* cor de fundo do trilho */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #5C4033; /* cor do "polegar" */
+    border-radius: 10px;
+    border: 2px solid #F5E6CC;  /* borda para dar contraste */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #8B5E3C; /* tom mais claro no hover */
+}
+
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #5C4033 #F5E6CC;
+}
+
+h1 {
+    font-family: "Pacifico", cursive;
+}
+
+h2, h3 {
+    font-family: "Poppins", sans-serif;
+}
+
+p, span, li {
+    font-family: "Nunito", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #8B5E3C;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}

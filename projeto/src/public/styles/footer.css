@@ -1,0 +1,32 @@
+.footer {
+  background-color: var(--color-03);
+  color: var(--color-02);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 3rem;
+  font-size: 0.95rem;
+  flex-wrap: wrap;
+}
+
+.footer-left p {
+  margin: 0;
+}
+
+.footer-right {
+  display: flex;
+  gap: 16px;
+}
+
+.footer-right a img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  filter: brightness(0) invert(1);
+}
+
+.footer-right a img:hover {
+  transform: scale(1.2);
+  opacity: 0.8;
+}
