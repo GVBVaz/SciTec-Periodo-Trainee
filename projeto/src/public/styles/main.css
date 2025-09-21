@@ -103,8 +103,6 @@ main {
 
 .banner .banner-action .banner-action-image img {
   width: 100%;
-  margin-left: 13rem;
-
   max-width: 600px;
 
   object-fit: cover;
