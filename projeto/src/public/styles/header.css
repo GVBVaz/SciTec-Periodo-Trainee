@@ -54,3 +54,7 @@ header nav a {
 header nav a:hover {
     color: var(--color-04);
 }
+
+header nav a.active {
+    color: var(--color-04);
+}

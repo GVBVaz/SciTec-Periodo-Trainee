@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChocoBytes - Produtos</title>
+    <link rel="icon" href="/images/cookie-favicon.png" type="image/png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        
+        :root {
+            --color-04: #E6B566; 
+        }
+
+        /* Barra de rolagem para navegadores baseados em WebKit (Chrome, Edge, Safari) */
+        ::-webkit-scrollbar {
+            width: auto; /* largura da barra */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F5E6CC; /* cor de fundo do trilho */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #5C4033; /* cor do "polegar" */
+            border-radius: 10px;
+            border: 2px solid #F5E6CC;  /* borda para dar contraste */
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #8B5E3C; /* tom mais claro no hover */
+        }
+
+        /* Firefox */
+        * {
+            scrollbar-width: auto;
+            scrollbar-color: #5C4033 #F5E6CC;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #F5E6CC;
+            color: #5C4033;
+        }
+        
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 3rem;
+            padding-right: 3rem;
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            color: #FFFFFF;
+            background-color: #5C4033;
+        }
+        
+        @media screen and (max-width: 680px) {
+            header {
+                flex-direction: column;
+            }
+        }
+        
+        header div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        header div h1 {
+            font-family: "Pacifico", cursive;
+            font-size: 32px;
+            font-weight: 700;
+        }
+        
+        header div img {
+            width: 70px;
+            height: 70px;
+        }
+        
+        header nav ul {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+        }
+        
+        header nav a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s ease-in-out;
+            font-family: "Nunito", sans-serif;
+            font-size: 24px;
+            font-weight: 400;
+            cursor: pointer;
+        }
+        
+        header nav a:hover {
+            color: var(--color-04);
+        }
+        
+        header nav a.active {
+            color: var(--color-04);
+        }
+        
+        /* Conteúdo principal */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #5C4033;
+            font-family: "Poppins", sans-serif;
+            font-size: 2.5rem;
+        }
+        
+        /* Filtros */
+        .filters {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .filter-title {
+            font-family: "Nunito", sans-serif;
+            font-size: 1.2rem;
+            margin-left: 3px;
+            margin-bottom: 15px;
+            color: #5C4033;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            font-family: "Nunito", sans-serif;
+            padding: 8px 20px;
+            background-color: #f1e1c6;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #5C4033;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: #5C4033;
+            color: white;
+        }
+        
+        /* Produtos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-bottom: 1px solid #f1e1c6;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-category {
+            color: #8d6e63;
+            font-family: "Nunito", sans-serif;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .product-name {
+            font-family: "Nunito", sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #5C4033;
+        }
+        
+        .product-description {
+            color: #8d6e63;
+            margin-bottom: 15px;
+            font-family: "Nunito", sans-serif;
+            font-size: 0.95rem;
+        }
+        
+        .product-price {
+            font-family: "Nunito", sans-serif;
+            font-weight: bold;
+            color: #5C4033;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+        
+        .product-rating {
+            color: var(--color-04);
+            margin-bottom: 15px;
+        }
+        
+        .add-to-cart {
+            background-color: #5C4033;
+            color: white;
+            border: none;
+            padding: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-family: "Nunito", sans-serif;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #4a3329;
+        }
+        
+        /* Footer - baseado no código fornecido */
+        .footer {
+            background-color: #8B5E3C;
+            color: #F5E6CC;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 3rem;
+            font-family: "Nunito", sans-serif;
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-left p {
+            margin: 0;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-right a img {
+            width: 28px;
+            height: 28px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-right a img:hover {
+            transform: scale(1.2);
+            opacity: 0.8;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            
+            .footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .filter-options {
+                justify-content: center;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="/images/ChocoBytes-logo.png" alt="Logo da loja de cookies">
+            <h1>ChocoBytes</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a class="active" href="/produtos">Produtos</a></li>
+                <li><a href="/sobre">Sobre</a></li>
+                <li><a href="/contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <h2 class="page-title">Nossos Cookies</h2>
+        
+        <!-- Filtros -->
+        <section class="filters">
+            <h3 class="filter-title">Filtrar por Categoria:</h3>
+            <div class="filter-options">
+                <button class="filter-btn active">Todos</button>
+                <button class="filter-btn">Chocolate</button>
+                <button class="filter-btn">Frutas</button>
+                <button class="filter-btn">Especiais</button>
+                <button class="filter-btn">Sem Glúten</button>
+            </div>
+        </section>
+        
+        <!-- Produtos -->
+        <section class="products-grid">
+            <!-- Produto 1 -->
+            <div class="product-card">
+                <img src="/images/cookie-chocolate.png" alt="Cookie de Chocolate" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Chocolate</div>
+                    <h3 class="product-name">Cookie Duplo de Chocolate</h3>
+                    <p class="product-description">Chocolate belga 70% cacau com pedaços de chocolate meio amargo.</p>
+                    <div class="product-rating">★★★★☆</div>
+                    <div class="product-price">R$ 7,90</div>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Produto 2 -->
+            <div class="product-card">
+                <img src="/images/cookie-aveia-mel.png" alt="Cookie de Aveia e Mel" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Especiais</div>
+                    <h3 class="product-name">Cookie de Aveia e Mel</h3>
+                    <p class="product-description">Aveia em flocos, mel silvestre e gotas de chocolate branco.</p>
+                    <div class="product-rating">★★★★★</div>
+                    <div class="product-price">R$ 6,90</div>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Produto 3 -->
+            <div class="product-card">
+                <img src="/images/cookie-cranberry.png" alt="Cookie de Cranberry" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Frutas</div>
+                    <h3 class="product-name">Cookie de Cranberry e Nozes</h3>
+                    <p class="product-description">Cranberries desidratadas, nozes e pedaços de chocolate branco.</p>
+                    <div class="product-rating">★★★★☆</div>
+                    <div class="product-price">R$ 8,50</div>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Produto 4 -->
+            <div class="product-card">
+                <img src="/images/cookie-baunilha.png" alt="Cookie de Baunilha" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Especiais</div>
+                    <h3 class="product-name">Cookie de Baunilha Bourbon</h3>
+                    <p class="product-description">Baunilha bourbon natural com gotas de chocolate ao leite.</p>
+                    <div class="product-rating">★★★★½</div>
+                    <div class="product-price">R$ 7,50</div>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Produto 5 -->
+            <div class="product-card">
+                <img src="/images/cookie-limao.png" alt="Cookie de Limão" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Frutas</div>
+                    <h3 class="product-name">Cookie de Limão Siciliano</h3>
+                    <p class="product-description">Raspas de limão siciliano e gotas de chocolate branco.</p>
+                    <div class="product-rating">★★★½☆</div>
+                    <div class="product-price">R$ 6,50</div>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Produto 6 -->
+            <div class="product-card">
+                <img src="/images/cookie-sem-gluten.png" alt="Cookie Sem Glúten" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Sem Glúten</div>
+                    <h3 class="product-name">Cookie de Amêndoas Sem Glúten</h3>
+                    <p class="product-description">Feito com farinha de amêndoas, chocolate 70% e açúcar de coco.</p>
+                    <div class="product-rating">★★★★★</div>
+                    <div class="product-price">R$ 9,90</div>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-left">
+            <p>🍪 Projeto Final desenvolvido por <strong>Alejandro Araujo</strong> e <strong>Gabriel Vaz</strong> 🍪</p>
+        </div>
+        <div class="footer-right">
+            <a href="https://www.linkedin.com/in/alejandro-araujo-aa4003251/" target="_blank">
+                <img src="/images/linkedin.png" alt="LinkedIn">
+            </a>
+            <a href="https://github.com/GVBVaz/SciTec-Periodo-Trainee/tree/main/projeto" target="_blank">
+                <img src="/images/github.png" alt="GitHub">
+            </a>
+            <a href="https://www.linkedin.com/in/gabriel-vaz-baruel/" target="_blank">
+                <img src="/images/linkedin.png" alt="LinkedIn">
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // Filtro de categorias
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const productCards = document.querySelectorAll('.product-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove a classe active de todos os botões
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Adiciona a classe active ao botão clicado
+                    button.classList.add('active');
+                    
+                    const category = button.textContent.trim().toLowerCase();
+                    
+                    // Filtra os produtos
+                    productCards.forEach(card => {
+                        if (category === 'todos') {
+                            card.style.display = 'block';
+                        } else {
+                            const cardCategory = card.querySelector('.product-category').textContent.toLowerCase();
+                            if (cardCategory.includes(category)) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // Simulação de adição ao carrinho
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const productName = button.parentElement.querySelector('.product-name').textContent;
+                    alert(`${productName} foi adicionado ao carrinho!`);
+                    
+                    // Efeito visual no botão
+                    const originalText = button.textContent;
+                    button.textContent = "Adicionado!";
+                    button.style.backgroundColor = '#4CAF50';
+                    
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.style.backgroundColor = '#5C4033';
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

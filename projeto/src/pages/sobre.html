@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChocoBytes - Sobre</title>
+    <link rel="icon" href="/images/cookie-favicon.png" type="image/png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        /* Estilos baseados no header fornecido */
+        :root {
+            --color-04: #E6B566; /* Cor dourada para destaques */
+        }
+
+        /* Barra de rolagem para navegadores baseados em WebKit (Chrome, Edge, Safari) */
+        ::-webkit-scrollbar {
+            width: auto; /* largura da barra */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F5E6CC; /* cor de fundo do trilho */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #5C4033; /* cor do "polegar" */
+            border-radius: 10px;
+            border: 2px solid #F5E6CC;  /* borda para dar contraste */
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #8B5E3C; /* tom mais claro no hover */
+        }
+
+        /* Firefox */
+        * {
+            scrollbar-width: auto;
+            scrollbar-color: #5C4033 #F5E6CC;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #F5E6CC;
+            color: #5C4033;
+        }
+        
+        /* Header - baseado no código fornecido */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 3rem;
+            padding-right: 3rem;
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            color: #FFFFFF;
+            background-color: #5C4033;
+        }
+        
+        @media screen and (max-width: 680px) {
+            header {
+                flex-direction: column;
+            }
+        }
+        
+        header div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        header div h1 {
+            font-family: "Pacifico", cursive;
+            font-size: 32px;
+            font-weight: 700;
+        }
+        
+        header div img {
+            width: 70px;
+            height: 70px;
+        }
+        
+        header nav ul {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+        }
+        
+        header nav a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s ease-in-out;
+            font-family: "Nunito", sans-serif;
+            font-size: 24px;
+            font-weight: 400;
+            cursor: pointer;
+        }
+        
+        header nav a:hover {
+            color: var(--color-04);
+        }
+        
+        header nav a.active {
+            color: var(--color-04);
+        }
+        
+        /* Conteúdo principal */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #5C4033;
+            font-family: "Poppins", sans-serif;
+            font-size: 2.5rem;
+        }
+        
+        /* Seção de história */
+        .history {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: center;
+        }
+        
+        .history-text {
+            font-family: "Nunito", sans-serif;
+            text-align: justify;
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .history-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .history-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Seção de valores */
+        .values {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+        }
+
+        .values h2 {
+            font-family: "Nunito", sans-serif;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .value-item {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: #f8f4ef;
+        }
+        
+        .value-item h3 {
+            font-family: "Nunito", sans-serif;
+            color: #5C4033;
+            margin-bottom: 1rem;
+        }
+
+        .value-item p {
+            font-family: "Nunito", sans-serif;
+        }
+        
+        /* Equipe */
+        .team {
+            margin-bottom: 3rem;
+        }
+
+        .team h2, h3, p {
+            font-family: "Nunito", sans-serif;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .team-member {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .team-member-image {
+            margin-top: 30px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .team-member-info {
+            padding: 1.5rem;
+        }
+        
+        .team-member-info h3 {
+            color: #5C4033;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-member-role {
+            color: var(--color-04);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer - baseado no código fornecido */
+        .footer {
+            background-color: #8B5E3C;
+            color: #F5E6CC;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 3rem;
+            font-family: "Nunito", sans-serif;
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-left p {
+            margin: 0;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-right a img {
+            width: 28px;
+            height: 28px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-right a img:hover {
+            transform: scale(1.2);
+            opacity: 0.8;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .history, .footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .history-text, .history-image {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="/images/ChocoBytes-logo.png" alt="Logo da loja de cookies">
+            <h1>ChocoBytes</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/produtos">Produtos</a></li>
+                <li><a class="active" href="/sobre">Sobre</a></li>
+                <li><a href="/contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <h2 class="page-title">Nossa História</h2>
+        
+       
+        <section class="history">
+            <div class="history-text">
+                <h2>Do código para a cozinha</h2>
+                <br>
+                <p>A ChocoBytes nasceu da união entre duas paixões: <strong>tecnologia e cookies</strong>. O que começou como uma brincadeira entre amigos desenvolvedores, que buscavam uma forma divertida de descontrair após horas de programação, rapidamente se transformou em um projeto cheio de sabor.</p>
+                <br>
+                <p>Assim como cada linha de código é escrita com cuidado, cada cookie da ChocoBytes é preparado com dedicação, combinando ingredientes selecionados e aquele toque artesanal que faz toda a diferença. Nosso objetivo é simples: <strong>entregar experiências doces, criativas e inesquecíveis</strong>.</p>
+            </div>
+            <div class="history-image">
+                <img src="/images/cozinha-chocobytes.jpg" alt="Cozinha da ChocoBytes">
+            </div>
+        </section>
+        
+        <!-- Seção de valores -->
+        <section class="values">
+            <h2>Nossos Valores</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <h3>Qualidade</h3>
+                    <p>Cada cookie é feito com ingredientes selecionados e atenção aos detalhes, garantindo sabor e frescor em cada mordida.</p>
+                </div>
+                <div class="value-item">
+                    <h3>Inovação</h3>
+                    <p>Unimos criatividade e tecnologia para reinventar a forma de produzir e compartilhar cookies.</p>
+                </div>
+                <div class="value-item">
+                    <h3>Sustentabilidade</h3>
+                    <p>Valorizamos práticas responsáveis que cuidam do meio ambiente e apoiam um futuro mais doce para todos.</p>
+                </div>
+                <div class="value-item" id="comunidade">
+                    <h3>Comunidade</h3>
+                    <p>Acreditamos que cookies têm o poder de aproximar pessoas e criar momentos inesquecíveis em conjunto.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção da equipe -->
+        <section class="team">
+            <h2>Nossa Equipe</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="/images/alejandro.jpg" alt="Alejandro" class="team-member-image">
+                    <div class="team-member-info">
+                        <h3>Alejandro Araujo</h3>
+                        <p class="team-member-role">CEO & Co-Founder</p>
+                        <p>Especialista em desenvolvimento web e cookies de chocolate.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="/images/gabriel.jpg" alt="Gabriel" class="team-member-image">
+                    <div class="team-member-info">
+                        <h3>Gabriel Vaz</h3>
+                        <p class="team-member-role">CTO & Co-Founder</p>
+                        <p>Mestre em sabores inovadores e soluções tecnológicas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-left">
+            <p>🍪 Projeto Final desenvolvido por <strong>Alejandro Araujo</strong> e <strong>Gabriel Vaz</strong> 🍪</p>
+        </div>
+        <div class="footer-right">
+            <a href="https://www.linkedin.com/in/alejandro-araujo-aa4003251/" target="_blank">
+                <img src="/images/linkedin.png" alt="LinkedIn">
+            </a>
+            <a href="https://github.com/GVBVaz/SciTec-Periodo-Trainee/tree/main/projeto" target="_blank">
+                <img src="/images/github.png" alt="GitHub">
+            </a>
+            <a href="https://www.linkedin.com/in/gabriel-vaz-baruel/" target="_blank">
+                <img src="/images/linkedin.png" alt="LinkedIn">
+            </a>
+        </div>
+    </footer>
+</body>
+</html>
