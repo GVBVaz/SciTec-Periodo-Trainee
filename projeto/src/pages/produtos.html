@@ -245,6 +245,73 @@
         .add-to-cart:hover {
             background-color: #4a3329;
         }
+
+        /* Carrinho */
+        .cart {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .cart-title {
+            font-family: "Nunito", sans-serif;
+            font-size: 1.2rem;
+            margin-left: 3px;
+            margin-bottom: 15px;
+            color: #5C4033;
+        }
+
+        #cart-items > * + * {
+            margin-top: 1rem;
+        }
+
+        #empty-cart-message {
+            font-family: "Nunito", sans-serif;
+            font-size: 0.95rem;
+            text-align: center;
+            color: #8d6e63;
+        }
+
+        .cart-summary {
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .cart-summary > * + * {
+            margin-top: 0.5rem;
+        }
+
+        .cart-price-line {
+            display: flex;
+            justify-content: space-between;
+            font-family: "Nunito", sans-serif;
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        #checkout-button {
+            background-color: #E6B566;
+            color: #4a3329;
+            border: none;
+            padding: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-family: "Nunito", sans-serif;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        #checkout-button:disabled {
+            opacity: 50%;
+            cursor: not-allowed;
+        }
+
+        #checkout-button:hover {
+            background-color: #c99a4e;
+        }
         
         /* Footer - baseado no código fornecido */
         .footer {
@@ -420,6 +487,24 @@
                 </div>
             </div>
         </section>
+
+        <h2 class="page-title">Carrinho</h2>
+
+        <!-- Carrinho de compras -->
+        <section class="cart">
+            <h3 class="cart-title">Seu Pedido:</h3>
+            <div id="cart-items">
+                <!-- Inserido via JS -->
+                <p id="empty-cart-message">Seu carrinho está vazio!</p>
+            </div>
+            <div class="cart-summary">
+                <div class="cart-price-line">
+                    <span>Total</span>
+                    <span id="cart-total">R$ 0,00</span>
+                </div>
+                <button id="checkout-button" disabled>Finalizar Pedido</button>
+            </div>
+        </section>
     </main>
     
     <footer class="footer">
@@ -444,6 +529,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             const filterButtons = document.querySelectorAll('.filter-btn');
             const productCards = document.querySelectorAll('.product-card');
+
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+            const checkoutButton = document.getElementById('checkout-button');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+
+            let cart = [];
             
             filterButtons.forEach(button => {
                 button.addEventListener('click', () => {
@@ -470,23 +562,139 @@
                 });
             });
             
-            // Simulação de adição ao carrinho
+            // Função para atualizar carrinho
+            function updateCart() {
+                cartItemsContainer.innerHTML = '';
+
+                if (cart.length === 0) {
+                    cartItemsContainer.appendChild(emptyCartMessage);
+                    cartTotalElement.textContent = "R$ 0,00";
+                    checkoutButton.disabled = true;
+                    return;
+                }
+
+                cart.forEach((item, index) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'cart-item';
+                    itemDiv.style.display = 'flex';
+                    itemDiv.style.flexDirection = 'column';
+                    itemDiv.style.borderBottom = '1px solid #F5E6CC';
+                    itemDiv.style.position = 'relative';
+                    itemDiv.style.padding = '8px 0 24px 0';
+
+                    // Linha superior: nome + botões de quantidade
+                    const topLineDiv = document.createElement('div');
+                    topLineDiv.style.display = 'flex';
+                    topLineDiv.style.alignItems = 'center';
+                    topLineDiv.style.gap = '8px';
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.textContent = item.name;
+                    nameSpan.style.fontFamily = 'Nunito, sans-serif';
+                    nameSpan.style.fontWeight = '600';
+                    nameSpan.style.fontSize = '1rem';
+
+                    const plusBtn = document.createElement('button');
+                    plusBtn.textContent = '+';
+                    plusBtn.style.cssText = 'background:#5C4033;color:white;border:none;border-radius:3px;width:24px;height:24px;cursor:pointer;';
+                    plusBtn.addEventListener('click', () => {
+                        item.quantity += 1;
+                        updateCart();
+                    });
+
+                    const minusBtn = document.createElement('button');
+                    minusBtn.textContent = '-';
+                    minusBtn.style.cssText = 'background:#5C4033;color:white;border:none;border-radius:3px;width:24px;height:24px;cursor:pointer;';
+                    minusBtn.addEventListener('click', () => {
+                        if (item.quantity > 1) {
+                            item.quantity -= 1;
+                        } else {
+                            cart.splice(index, 1);
+                        }
+                        updateCart();
+                    });
+
+                    topLineDiv.appendChild(nameSpan);
+                    topLineDiv.appendChild(plusBtn);
+                    topLineDiv.appendChild(minusBtn);
+                    itemDiv.appendChild(topLineDiv);
+
+                    // Linha inferior: preço individual, quantidade e total
+                    const priceDiv = document.createElement('div');
+                    priceDiv.style.fontFamily = 'Nunito, sans-serif';
+                    priceDiv.style.fontSize = '0.95rem';
+                    priceDiv.style.color = '#5C4033';
+                    priceDiv.style.marginTop = '16px';
+                    priceDiv.textContent = `Preço: R$ ${item.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })} | Quantidade: ${item.quantity} | Total: R$ ${(item.price * item.quantity).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+
+                    itemDiv.appendChild(priceDiv);
+
+                    // Botão de remover como "X" vermelho
+                    const removeBtn = document.createElement('button');
+                    removeBtn.textContent = '✖';
+                    removeBtn.style.position = 'absolute';
+                    removeBtn.style.right = '0';
+                    removeBtn.style.top = '8px';
+                    removeBtn.style.background = 'transparent';
+                    removeBtn.style.border = 'none';
+                    removeBtn.style.color = 'red';
+                    removeBtn.style.fontSize = '1.2rem';
+                    removeBtn.style.cursor = 'pointer';
+                    removeBtn.addEventListener('click', () => {
+                        cart.splice(index, 1);
+                        updateCart();
+                    });
+
+                    itemDiv.appendChild(removeBtn);
+                    cartItemsContainer.appendChild(itemDiv);
+                });
+
+                // Atualiza total geral
+                const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                cartTotalElement.textContent = `R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+
+                checkoutButton.disabled = false;
+            }
+
+            // Adicionar produtos ao carrinho
             const addToCartButtons = document.querySelectorAll('.add-to-cart');
             addToCartButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    const productName = button.parentElement.querySelector('.product-name').textContent;
-                    alert(`${productName} foi adicionado ao carrinho!`);
-                    
+                    const productCard = button.closest('.product-card');
+                    const productName = productCard.querySelector('.product-name').textContent;
+                    const productPriceText = productCard.querySelector('.product-price').textContent;
+                    const productPrice = parseFloat(productPriceText.replace('R$ ', '').replace(',', '.'));
+
+                    // Verifica se o item já está no carrinho
+                    const existingItem = cart.find(item => item.name === productName);
+                    if (existingItem) {
+                        existingItem.quantity += 1; // aumenta quantidade
+                    } else {
+                        cart.push({ name: productName, price: productPrice, quantity: 1 });
+                    }
+
+                    // Atualiza carrinho na tela
+                    updateCart();
+
                     // Efeito visual no botão
                     const originalText = button.textContent;
                     button.textContent = "Adicionado!";
                     button.style.backgroundColor = '#4CAF50';
-                    
                     setTimeout(() => {
                         button.textContent = originalText;
                         button.style.backgroundColor = '#5C4033';
-                    }, 2000);
+                    }, 1500);
+
+                    // Scroll automático até o carrinho
+                    document.querySelector('.cart').scrollIntoView({ behavior: 'smooth' });
                 });
+            });
+
+            // Finalizar pedido
+            checkoutButton.addEventListener('click', () => {
+                alert('Compra finalizada com sucesso! Obrigado pela preferência 😄');
+                cart = []; // limpa o carrinho
+                updateCart();
             });
         });
     </script>
